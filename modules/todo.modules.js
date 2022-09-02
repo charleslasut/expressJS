@@ -137,6 +137,47 @@ class _todo {
         }
     }
 
+    // Detail Todo
+    details_todo = async (id) => {
+        try {
+            const schema = Joi.number().required()
+            const validation = schema.validate(id)
+
+            if (validation.error) {
+                const errorDetails = validation.error.details.map(detail => detail.message)
+                return {
+                    status: false,
+                    code: 422,
+                    error: errorDetails.join(',')
+                }
+            }
+
+            const detail_todo = await mysql.query(
+                'SELECT id, title, description, created_at, update_at FROM d_todo WHERE id = ?',
+                [id]
+            )
+            if(detail_todo.length <= 0) {
+                return {
+                    status: false,
+                    code: 422,
+                    error: 'Sorry, Todo Not Found'
+                }
+            }
+
+            return{
+                status: true,
+                data: detail_todo
+            }
+
+        } catch (error) {
+            console.error('Details todo module Eroor', error)
+
+            return {
+                status: false,
+                error
+            }
+        }
+    }
 }
 
 module.exports = new _todo()

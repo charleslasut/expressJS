@@ -50,4 +50,16 @@ TodoController.delete('/:id', async(req, res, next) => {
     response.sendResponse(res, delete_todo)
 })
 
+/**
+ * detail Todo 
+ */
+TodoController.get('/detail', async(req, res, next) => {
+
+    const detail = await todo.details_todo(req.query.id)
+
+    response.sendResponse(res, detail)
+
+})
+
+
 module.exports = TodoController

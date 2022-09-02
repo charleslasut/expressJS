@@ -23,6 +23,20 @@ class _response {
             return false
         }
     }
+
+    errorHandler = (err, req, res, next) => {
+        if (err.code === 'UnautorizedError') {
+            res.status(401).send({
+                status: false,
+                error : 'Invalid Token'
+            })
+        }
+
+        return res.status(500).send({
+            status: false,
+            error: err.message
+        })
+    }
 }
 
 module.exports = new _response()

@@ -1,5 +1,7 @@
 const express = require('express')
 const { route } = require('./controllers/TodoController')
+const { sendResponse } = require('./helpers/response')
+const response = require('./helpers/response')
 const routes = require('./routes')
 const app = express()
 
@@ -20,6 +22,8 @@ app.get('/', async(req, res, next)=>{
 // Routes
 routes(app)
 
+//Error handlers
+app.use(response.errorHandler)
 
 app.listen(port, ()=>{
     console.log(`Server is listening on http://localhost:${port}`)
