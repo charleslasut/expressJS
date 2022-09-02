@@ -2,8 +2,7 @@ const mysql = require('../helpers/database')
 const Joi = require('joi')
 
 class _todo {
-    // List all Todos
-    listTodo = async () => {
+    list_Todo = async () => {
         try { 
             const list = await mysql.query(
                 'SELECT * FROM d_todo',
@@ -24,3 +23,5 @@ class _todo {
         }
     }
 }
+
+module.exports = new _todo()

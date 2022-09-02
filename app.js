@@ -1,4 +1,6 @@
 const express = require('express')
+const { route } = require('./controllers/TodoController')
+const routes = require('./routes')
 const app = express()
 
 // This is the route the API will call
@@ -14,6 +16,10 @@ app.get('/', async(req, res, next)=>{
         message: 'Welcome to API Todo List'
     })
 })
+
+// Routes
+routes(app)
+
 
 app.listen(port, ()=>{
     console.log(`Server is listening on http://localhost:${port}`)

@@ -1,23 +1,23 @@
-const { query } = require('express')
 const mariadb = require('mariadb')
 const config = require("../config/app.config.json")
 const pool = mariadb.createPool(config.db)
 
 class _database {
-    query = async (sql, params, inserIdAsNumber = true, stripMate = true, dataString = true) => {
-        let com
+    query = async (sql, params, insertIdAsNumber = true, stripMeta = true, dataString = true) => {
+        let conn
         try {
-            com = await pool.getConnection()
-            const result = await com.execute({sql, insertIdAsNumber}, params)
+            conn = await pool.getConnection()
+            const res = await conn.execute({sql, insertIdAsNumber, dataString}, params)
 
-            if (stripMate) {
-                delete res.mate
+            if (stripMeta) {
+                delete res.meta
             }
 
 
             return res
         } finally {
-            if (com) com.release()
+            if (conn) conn.release()
         }
     }
 }
+module.exports = new _database()

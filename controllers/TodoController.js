@@ -1,6 +1,6 @@
 const { Router } = require('express')
-const modul_todo = require('../moduls/todo.modules')
-
+const todo = require('../modules/todo.modules')
+const response = require('../helpers/response')
 const TodoController = Router()
 
 
@@ -9,8 +9,7 @@ const TodoController = Router()
  */
 
 TodoController.get('/', async(req, res, next) => {
-    const list = await modul_todo()
-
+    const list = await todo.list_Todo()
     response.sendResponse(res, list)
 
 })

@@ -1,5 +1,5 @@
 class _response {
-    sendRequest = (res, data) => {
+    sendResponse = (res, data) => {
         try {
             if (data.code) {
                 res.status(data.code)
@@ -16,11 +16,11 @@ class _response {
         } catch (error) {
             console.log('sendResponse response helper Error', error)
 
-            res.status(400).send({
+            res.status(500).send({
                 status: false,
                 error
             })
-            return true
+            return false
         }
     }
 }
